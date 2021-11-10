@@ -2,6 +2,8 @@ package com.redesocial.RedeSocial.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.redesocial.RedeSocial.models.PostModel;
+import com.redesocial.RedeSocial.repositories.PostRepository;
 
 /**
  * 
@@ -40,17 +45,17 @@ public class PostController {
 	}
 
 	@GetMapping("/name/{name}")
-	public ResponseEntity<List<PostModel>> getByName(@PathVariable String title) {
-		return ResponseEntity.ok(repository.findAllByTitleContainingIgnoreCase(title));
+	public ResponseEntity<List<PostModel>> getByDescriptionPost(@PathVariable String descriptionpost) {
+		return ResponseEntity.ok(repository.findAllByDescriptionPostContainingIgnoreCase(descriptionpost));
 	}
 
 	@PostMapping
-	public ResponseEntity<PostModel> post(@RequestBody PostModel post) {
+	public ResponseEntity<PostModel> post(@Valid @RequestBody PostModel post) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(post));
 	}
 
 	@PutMapping
-	public ResponseEntity<PostModel> put(@RequestBody PostModel post) {
+	public ResponseEntity<PostModel> put(@Valid @RequestBody PostModel post) {
 		return ResponseEntity.status(HttpStatus.OK).body(repository.save(post));
 	}
 

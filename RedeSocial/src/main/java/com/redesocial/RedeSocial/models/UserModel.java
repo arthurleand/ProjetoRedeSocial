@@ -1,16 +1,23 @@
 package com.redesocial.RedeSocial.models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 
  * @author Vitor Alex
+ * @author Arthur Leandro
  * @since 1.0
  *
  */
@@ -18,28 +25,39 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "tb_user")
 public class UserModel {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+	private Long idUser;
+
 	@NotBlank
 	private String name;
-	
+
 	@NotBlank
 	@Email
 	private String email;
-	
+
 	@NotBlank
 	private String password;
 
-	
-	public Long getId() {
-		return id;
+	@OneToMany(mappedBy = "fkUser", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("fkUser")
+	private List<PostModel> post;
+
+	public Long getIdUser() {
+		return idUser;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdUser(Long idUser) {
+		this.idUser = idUser;
+	}
+
+	public List<PostModel> getPost() {
+		return post;
+	}
+
+	public void setPost(List<PostModel> post) {
+		this.post = post;
 	}
 
 	public String getName() {
@@ -65,5 +83,5 @@ public class UserModel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 }

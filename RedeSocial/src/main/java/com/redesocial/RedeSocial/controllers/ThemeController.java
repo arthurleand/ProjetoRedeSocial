@@ -2,6 +2,8 @@ package com.redesocial.RedeSocial.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,12 +46,12 @@ public class ThemeController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ThemeModel> post(@RequestBody ThemeModel theme) {
+	public ResponseEntity<ThemeModel> post(@Valid @RequestBody ThemeModel theme) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(theme));
 	}
 
 	@PutMapping
-	public ResponseEntity<ThemeModel> put(@RequestBody ThemeModel theme) {
+	public ResponseEntity<ThemeModel> put(@Valid @RequestBody ThemeModel theme) {
 		return ResponseEntity.status(HttpStatus.OK).body(repository.save(theme));
 	}
 

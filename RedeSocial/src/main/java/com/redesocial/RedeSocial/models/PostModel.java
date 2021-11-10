@@ -6,15 +6,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 
- * @author MARILIA
+ * @author Marilia Muniz
+ * @author Arthur Leandro
  * @since 1.0
  *
  */
@@ -38,9 +42,17 @@ public class PostModel {
 	@NotBlank
 	@Size(min = 5, max = 500)
 	private String archive;
-
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date = new java.sql.Date(System.currentTimeMillis());
+	
+	@ManyToOne
+	@JsonIgnoreProperties("post")
+	private ThemeModel fkTheme;
+
+	@ManyToOne
+	@JsonIgnoreProperties("user")
+	private UserModel fkUser;
 
 	public Long getIdPost() {
 		return idPost;
@@ -80,6 +92,22 @@ public class PostModel {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public ThemeModel getFkTheme() {
+		return fkTheme;
+	}
+
+	public void setFkTheme(ThemeModel fkTheme) {
+		this.fkTheme = fkTheme;
+	}
+
+	public UserModel getFkUser() {
+		return fkUser;
+	}
+
+	public void setFkUser(UserModel fkUser) {
+		this.fkUser = fkUser;
 	}
 
 }
