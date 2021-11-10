@@ -15,42 +15,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.redesocial.RedeSocial.models.TemaModel;
-import com.redesocial.RedeSocial.repositories.TemaRepository;
+import com.redesocial.RedeSocial.models.ThemeModel;
+import com.redesocial.RedeSocial.repositories.ThemeRepository;
 
 
 
 @RestController
-@RequestMapping("/tema")
+@RequestMapping("/theme")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class TemaController {
+public class ThemeController {
 	
 	@Autowired
-	private TemaRepository repository;
+	private ThemeRepository repository;
 
 	@GetMapping
-	public ResponseEntity<List<TemaModel>> getAll() {
+	public ResponseEntity<List<ThemeModel>> getAll() {
 		return ResponseEntity.ok(repository.findAll());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<TemaModel> getById(@PathVariable Long id) {
+	public ResponseEntity<ThemeModel> getById(@PathVariable Long id) {
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 
 	@GetMapping("/name/{name}")
-	public ResponseEntity<List<TemaModel>> getByName(@PathVariable String name) {
-		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(name));
+	public ResponseEntity<List<ThemeModel>> getByName(@PathVariable String name) {
+		return ResponseEntity.ok(repository.findAllByNameContainingIgnoreCase(name));
 	}
 
 	@PostMapping
-	public ResponseEntity<TemaModel> post(@RequestBody TemaModel tema) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(tema));
+	public ResponseEntity<ThemeModel> post(@RequestBody ThemeModel theme) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(theme));
 	}
 
 	@PutMapping
-	public ResponseEntity<TemaModel> put(@RequestBody TemaModel tema) {
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(tema));
+	public ResponseEntity<ThemeModel> put(@RequestBody ThemeModel theme) {
+		return ResponseEntity.status(HttpStatus.OK).body(repository.save(theme));
 	}
 
 	@DeleteMapping("/{id}")
