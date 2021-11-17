@@ -38,11 +38,10 @@ public class UserModel {
 	@Email
 	private String email;
 
-	@NotBlank
 	private String token;
 
 	@NotBlank
-	@Size(min = 3, max = 15)
+	@Size(min = 3, max = 100)
 	private String password;
 
 	@OneToMany(mappedBy = "fkUser", cascade = CascadeType.REMOVE)

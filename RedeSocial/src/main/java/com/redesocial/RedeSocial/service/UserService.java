@@ -3,10 +3,17 @@ package com.redesocial.RedeSocial.service;
 import java.nio.charset.Charset;
 import org.apache.commons.codec.binary.Base64;
 import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import com.redesocial.RedeSocial.dtos.UserRegistrationDTO;
 import com.redesocial.RedeSocial.dtos.UserLoginDTO;
 import com.redesocial.RedeSocial.models.UserModel;
 import com.redesocial.RedeSocial.repositories.UserRepository;
@@ -14,7 +21,8 @@ import com.redesocial.RedeSocial.repositories.UserRepository;
 /**
  * 
  * @author Vitor Alex
- * @since 1.0
+ * @author Arthur Leandro
+ * @since 1.1
  *
  */
 
@@ -24,15 +32,39 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 	
-	public UserModel RegisterUser (UserModel user) {
+	
+	private static String encryptPassword(String password) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		
-		String passwordEncoder = encoder.encode(user.getPassword());
-		user.setPassword(passwordEncoder);
-		
-		return repository.save(user);
-		
+		return encoder.encode(password);
 	}
+	
+	private static String generatorToken(String email, String password) {
+		String structure = email + ":" + password;
+		byte[] structureBase64 = Base64.encodeBase64(structure.getBytes(Charset.forName("US-ASCII")));
+		return new String(structureBase64);
+	}
+	
+	private static String generatorBasicToken(String email, String password) {
+		String structure = email + ":" + password;
+		byte[] structureBase64 = Base64.encodeBase64(structure.getBytes(Charset.forName("US-ASCII")));
+		return "Basic " + new String(structureBase64);
+	}
+
+	public ResponseEntity<UserModel> registerUser(@Valid UserRegistrationDTO newUser) {
+		
+		Optional<UserModel> user = repository.findByEmail(newUser.getEmail());
+		if (user.isPresent()) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email is already in use!");
+		} else {
+			UserModel userNew = new UserModel();
+			userNew.setName(newUser.getName());
+			userNew.setEmail(newUser.getEmail());
+			userNew.setPassword(encryptPassword(newUser.getPassword()));
+			userNew.setToken(generatorToken(newUser.getEmail(), newUser.getPassword()));
+			return ResponseEntity.status(201).body(repository.save(userNew));
+		}
+	}
+	
 	
 	public Optional<UserLoginDTO> Login(Optional<UserLoginDTO> user){
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -40,13 +72,10 @@ public class UserService {
 		
 		if(userModel.isPresent()) {
 			if(encoder.matches(user.get().getPassword(),userModel.get().getPassword())) {
-				
-				String auth = user.get().getEmail() + ":" + user.get().getPassword();
-				byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
-				String authHeader = "Basic " + new String(encodedAuth);
-				
-				user.get().setToken(authHeader);
+
+				user.get().setBasicToken(generatorBasicToken(user.get().getEmail(),user.get().getPassword()));
 				user.get().setEmail(userModel.get().getEmail());
+				user.get().setName(userModel.get().getName());
 				
 				return user;
 			}
