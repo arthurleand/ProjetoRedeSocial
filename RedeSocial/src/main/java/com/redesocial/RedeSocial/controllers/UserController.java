@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.redesocial.RedeSocial.dtos.UserLoginDTO;
+import com.redesocial.RedeSocial.dtos.UserRegistrationDTO;
 import com.redesocial.RedeSocial.models.UserModel;
 import com.redesocial.RedeSocial.service.UserService;
 
@@ -38,8 +39,7 @@ public class UserController {
 				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
 	@PostMapping("/register")
-	public ResponseEntity<UserModel> Post(@Valid @RequestBody UserModel user){
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(userService.RegisterUser(user));
+	public ResponseEntity<UserModel> Post(@Valid @RequestBody UserRegistrationDTO user){
+		return userService.registerUser(user);
 	}
 }
