@@ -39,7 +39,10 @@ public class UserModel {
 	private String email;
 
 	@NotBlank
-	@Size(min=3,max=15)
+	private String token;
+
+	@NotBlank
+	@Size(min = 3, max = 15)
 	private String password;
 
 	@OneToMany(mappedBy = "fkUser", cascade = CascadeType.REMOVE)
@@ -84,6 +87,14 @@ public class UserModel {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }

@@ -18,5 +18,5 @@ import com.redesocial.RedeSocial.models.UserModel;
 public interface UserRepository extends JpaRepository<UserModel, Long> {
 
 	public Optional<UserModel> findByNameContainingIgnoreCase(String name);
-
+	public Optional<UserModel> findByEmail(String email);
 }

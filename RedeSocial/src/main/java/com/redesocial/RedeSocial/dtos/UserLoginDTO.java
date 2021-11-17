@@ -17,6 +17,16 @@ public class UserLoginDTO {
 
 	private @NotBlank(message = "Insert valid passWord") @Size(min = 3, max = 15) String passWord;
 
+	private String token;
+	
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	public String getEmail() {
 		return email;
 	}
