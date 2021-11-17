@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -38,6 +39,7 @@ public class UserModel {
 	private String email;
 
 	@NotBlank
+	@Size(min=3,max=15)
 	private String password;
 
 	@OneToMany(mappedBy = "fkUser", cascade = CascadeType.REMOVE)
