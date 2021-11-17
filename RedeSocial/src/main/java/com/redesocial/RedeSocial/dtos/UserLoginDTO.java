@@ -15,7 +15,7 @@ public class UserLoginDTO {
 
 	private @NotBlank(message = "Insert valid email") @Email String email;
 
-	private @NotBlank(message = "Insert valid passWord") @Size(min = 3, max = 15) String passWord;
+	private @NotBlank(message = "Insert valid passWord") @Size(min = 3, max = 15) String password;
 
 	private String token;
 	
@@ -35,12 +35,12 @@ public class UserLoginDTO {
 		this.email = email;
 	}
 
-	public String getPassWord() {
-		return passWord;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
+	public void setPassword(String passWord) {
+		this.password = passWord;
 	}
 
 }

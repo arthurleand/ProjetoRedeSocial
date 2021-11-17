@@ -10,7 +10,12 @@ import org.springframework.stereotype.Service;
 import com.redesocial.RedeSocial.models.UserModel;
 import com.redesocial.RedeSocial.repositories.UserRepository;
 
-
+/**
+ * 
+ * @author Laiane Karla
+ * @since 1.0
+ *
+ */
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

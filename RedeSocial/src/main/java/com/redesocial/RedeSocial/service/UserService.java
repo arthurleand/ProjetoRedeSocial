@@ -11,6 +11,13 @@ import com.redesocial.RedeSocial.dtos.UserLoginDTO;
 import com.redesocial.RedeSocial.models.UserModel;
 import com.redesocial.RedeSocial.repositories.UserRepository;
 
+/**
+ * 
+ * @author Vitor Alex
+ * @since 1.0
+ *
+ */
+
 @Service
 public class UserService {
 
@@ -27,14 +34,14 @@ public class UserService {
 		
 	}
 	
-	public Optional<UserLoginDTO> Logar(Optional<UserLoginDTO> user){
+	public Optional<UserLoginDTO> Login(Optional<UserLoginDTO> user){
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		Optional<UserModel> userModel = repository.findByEmail(user.get().getEmail());
 		
 		if(userModel.isPresent()) {
-			if(encoder.matches(user.get().getPassWord(),user.get().getPassWord())) {
+			if(encoder.matches(user.get().getPassword(),userModel.get().getPassword())) {
 				
-				String auth = user.get().getEmail() + ":" + user.get().getPassWord();
+				String auth = user.get().getEmail() + ":" + user.get().getPassword();
 				byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
 				String authHeader = "Basic " + new String(encodedAuth);
 				
