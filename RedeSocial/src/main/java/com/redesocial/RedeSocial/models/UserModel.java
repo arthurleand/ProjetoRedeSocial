@@ -15,6 +15,8 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * 
  * @author Vitor Alex
@@ -34,8 +36,9 @@ public class UserModel {
 	@NotBlank
 	private String name;
 
-	@NotBlank
-	@Email
+	@ApiModelProperty(example = "email@email.com.br")
+	@NotBlank(message = "O atributo Usuário é Obrigatório!")
+	@Email(message = "O atributo Usuário deve ser um email válido!")
 	private String email;
 
 	private String token;
