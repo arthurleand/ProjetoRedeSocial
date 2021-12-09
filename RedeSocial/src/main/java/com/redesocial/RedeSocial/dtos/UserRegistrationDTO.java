@@ -11,6 +11,8 @@ public class UserRegistrationDTO {
 	private @NotBlank(message = "Insert valid passWord") @Size(min = 3, max = 15) String password;
 	
 	private @NotBlank(message= "Inset valid name") @Size(min = 3, max = 100) String name;
+	
+	private String foto;
 
 	public String getEmail() {
 		return email;
@@ -34,6 +36,14 @@ public class UserRegistrationDTO {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 	
 }

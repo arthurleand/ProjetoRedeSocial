@@ -13,13 +13,33 @@ import javax.validation.constraints.Size;
 
 public class UserLoginDTO {
 
+	private Long id;
+
+	private String foto;
+
 	private @NotBlank(message = "Insert valid email") @Email String email;
 
 	private @NotBlank(message = "Insert valid passWord") @Size(min = 3, max = 15) String password;
-	
+
 	private String basicToken;
-	
+
 	private String name;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
 
 	public String getEmail() {
 		return email;

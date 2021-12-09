@@ -31,7 +31,7 @@ public class UserModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idUser;
+	private Long id;
 
 	@NotBlank
 	private String name;
@@ -40,6 +40,8 @@ public class UserModel {
 	@NotBlank(message = "O atributo Usuário é Obrigatório!")
 	@Email(message = "O atributo Usuário deve ser um email válido!")
 	private String email;
+
+	private String foto;
 
 	private String token;
 
@@ -50,14 +52,6 @@ public class UserModel {
 	@OneToMany(mappedBy = "fkUser", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("fkUser")
 	private List<PostModel> post;
-
-	public Long getIdUser() {
-		return idUser;
-	}
-
-	public void setIdUser(Long idUser) {
-		this.idUser = idUser;
-	}
 
 	public List<PostModel> getPost() {
 		return post;
@@ -97,6 +91,22 @@ public class UserModel {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 }
