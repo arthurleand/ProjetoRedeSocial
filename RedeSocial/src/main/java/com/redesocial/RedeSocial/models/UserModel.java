@@ -43,8 +43,6 @@ public class UserModel {
 
 	private String foto;
 
-	private String token;
-
 	@NotBlank
 	@Size(min = 3, max = 100)
 	private String password;
@@ -83,14 +81,6 @@ public class UserModel {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
 	}
 
 	public Long getId() {

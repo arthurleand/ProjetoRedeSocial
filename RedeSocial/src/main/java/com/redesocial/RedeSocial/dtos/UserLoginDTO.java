@@ -21,7 +21,7 @@ public class UserLoginDTO {
 
 	private @NotBlank(message = "Insert valid passWord") @Size(min = 3, max = 15) String password;
 
-	private String basicToken;
+	private String token;
 
 	private String name;
 
@@ -57,20 +57,20 @@ public class UserLoginDTO {
 		this.password = passWord;
 	}
 
-	public String getBasicToken() {
-		return basicToken;
-	}
-
-	public void setBasicToken(String basicToken) {
-		this.basicToken = basicToken;
-	}
-
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }
