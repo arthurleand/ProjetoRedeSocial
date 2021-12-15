@@ -61,8 +61,26 @@ public class UserService {
 			userNew.setEmail(newUser.getEmail());
 			userNew.setPassword(encryptPassword(newUser.getPassword()));
 			userNew.setToken(generatorToken(newUser.getEmail(), newUser.getPassword()));
+			userNew.setFoto(newUser.getFoto());
 			return ResponseEntity.status(201).body(repository.save(userNew));
 		}
+	}
+	
+	public Optional<UserModel> updateUser(UserModel user){
+		
+		if(repository.findById(user.getId()).isPresent()) {
+			Optional<UserModel> findUser = repository.findById(user.getId());
+			
+			if(findUser.isPresent()) {
+			if(findUser.get().getId() != user.getId())
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
+			}
+			
+			user.setPassword(encryptPassword(user.getPassword()));
+			return Optional.of(repository.save(user));
+		}
+		
+		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!", null);
 	}
 	
 	
