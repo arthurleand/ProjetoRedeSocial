@@ -40,7 +40,7 @@ public class UserController {
 	private UserRepository userRepository;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<UserModel> getById(@PathVariable long id) {
+	public ResponseEntity<UserModel> getById(@PathVariable Long id) {
 		return userRepository.findById(id)
 		        .map(resp -> ResponseEntity.ok(resp))
 		        .orElse(ResponseEntity.notFound().build());
