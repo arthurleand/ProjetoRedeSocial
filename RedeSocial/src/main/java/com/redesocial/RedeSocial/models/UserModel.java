@@ -51,12 +51,12 @@ public class UserModel {
 	@JsonIgnoreProperties("fkUser")
 	private List<PostModel> post;
 
-	public List<PostModel> getPost() {
-		return post;
+	public Long getId() {
+		return id;
 	}
 
-	public void setPost(List<PostModel> post) {
-		this.post = post;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -75,6 +75,14 @@ public class UserModel {
 		this.email = email;
 	}
 
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -83,20 +91,12 @@ public class UserModel {
 		this.password = password;
 	}
 
-	public Long getId() {
-		return id;
+	public List<PostModel> getPost() {
+		return post;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getFoto() {
-		return foto;
-	}
-
-	public void setFoto(String foto) {
-		this.foto = foto;
+	public void setPost(List<PostModel> post) {
+		this.post = post;
 	}
 
 }
