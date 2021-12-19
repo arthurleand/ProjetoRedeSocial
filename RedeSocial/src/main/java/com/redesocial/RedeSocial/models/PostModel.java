@@ -36,11 +36,13 @@ public class PostModel {
 	private String title;
 
 	@NotBlank
-	@Size(min = 5, max = 1000)
+	@Size(min = 5, max = 5000)
 	private String descriptionPost;
 
-	@NotBlank
-	@Size(min = 5, max = 500)
+	@Size(max = 1000)
+	private String picture;
+	
+	@Size(max = 1000)
 	private String archive;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -109,5 +111,14 @@ public class PostModel {
 	public void setFkUser(UserModel fkUser) {
 		this.fkUser = fkUser;
 	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+	
 
 }
