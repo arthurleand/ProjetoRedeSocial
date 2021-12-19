@@ -39,10 +39,9 @@ public class PostModel {
 	@Size(min = 5, max = 5000)
 	private String descriptionPost;
 
-	@Size(max = 10000)
+
 	private String picture;
 	
-	@Size(max = 10000)
 	private String archive;
 	
 	@Temporal(TemporalType.TIMESTAMP)
