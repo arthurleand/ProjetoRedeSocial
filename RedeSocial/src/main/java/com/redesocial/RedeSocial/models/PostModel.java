@@ -52,7 +52,7 @@ public class PostModel {
 	private ThemeModel fkTheme;
 
 	@ManyToOne
-	@JsonIgnoreProperties("user")
+	@JsonIgnoreProperties("post")
 	private UserModel fkUser;
 
 	public Long getIdPost() {
